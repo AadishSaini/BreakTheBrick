@@ -12,18 +12,24 @@ class Game:
         self.playing = True
         self.clock = pygame.time.Clock()
 
+        self.player = Player()
+
+        self.all_sprites = pygame.sprite.Group()
+        self.all_sprites.add(self.player)
+
     def new(self):
         self.run()
 
     def run(self):
         while self.playing:
+            self.clock.tick(FPS)
+            self.win.fill(WHITE)
             self.draw()
             self.events()
             self.update()
 
     def draw(self):
-        self.clock.tick(FPS)
-        self.win.fill(WHITE)
+        self.all_sprites.draw(self.win)
 
     def events(self):
         for event in pygame.event.get():
@@ -33,6 +39,7 @@ class Game:
                 self.running = False
 
     def update(self):
+        self.all_sprites.update()
         pygame.display.flip()
 
     def start_screen(self):
@@ -40,4 +47,3 @@ class Game:
 
     def game_over_screen(self):
         pass
-    
