@@ -3,6 +3,10 @@ import pygame
 from sprites import *
 from settings import *
 
+"python.linting.pylintArgs": [
+    "--disable=C0111"
+]
+
 class Game:
     def __init__(self):
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
