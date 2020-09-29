@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self):
         # pygame.sprite.Sprite.__init__(self)
         super(Player, self).__init__()
-        self.width = 100
+        self.width = 130
         self.height = 20
         self.image = pygame.Surface((self.width, self.height))
         self.image.fill(BLACK)
@@ -27,3 +27,14 @@ class Player(pygame.sprite.Sprite):
             self.rect.left = 0
         if self.rect.right > WIDTH:
             self.rect.right = WIDTH
+
+class Ball(pygame.sprite.Sprite):
+    def __init__(self):
+        super(Ball, self).__init__()
+        self.height = 15
+        self.width = 15
+        self.image = pygame.Surface((self.width, self.height))
+        pygame.draw.circle(self.image, CYAN, (105, 290), 80, 0)
+        # self.image.fill(CYAN)
+        self.rect = self.image.get_rect()
+        self.rect.center = (WIDTH /2, HEIGHT /2)
