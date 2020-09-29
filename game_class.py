@@ -13,7 +13,7 @@ class Game:
         self.clock = pygame.time.Clock()
 
         self.player = Player()
-        self.ball = Ball()
+        self.ball = Ball(self.player)
 
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player, self.ball)

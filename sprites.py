@@ -29,12 +29,33 @@ class Player(pygame.sprite.Sprite):
             self.rect.right = WIDTH
 
 class Ball(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, player):
         super(Ball, self).__init__()
         self.height = 15
         self.width = 15
         self.image = pygame.Surface((self.width, self.height))
-        pygame.draw.circle(self.image, CYAN, (105, 290), 80, 0)
-        # self.image.fill(CYAN)
+        self.image.fill(BLACK)
         self.rect = self.image.get_rect()
         self.rect.center = (WIDTH /2, HEIGHT /2)
+        self.x_vel = 8
+        self.y_vel = -7
+        self.p = player
+
+    def update(self):
+        self.rect.x+= self.x_vel
+        self.rect.y+= self.y_vel
+        self.bounds()
+        self.collisions()
+
+    def bounds(self):
+        if self.rect.top <= 0:
+            self.y_vel *= -1
+        if self.rect.left <= 0 or self.rect.right >= WIDTH:
+            self.x_vel *= -1
+        if self.rect.bottom >= HEIGHT:
+            print("GameOver")
+            self.y_vel *= -1
+
+    def collisions(self):
+        if self.rect.bottom >= self.p.rect.top and (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
+            self.y_vel *= -1
