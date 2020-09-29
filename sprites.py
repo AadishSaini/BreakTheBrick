@@ -57,5 +57,6 @@ class Ball(pygame.sprite.Sprite):
             self.y_vel *= -1
 
     def collisions(self):
-        if self.rect.bottom >= self.p.rect.top and (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
+        if self.rect.bottom >= self.p.rect.top and 
+        (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
             self.y_vel *= -1
