@@ -3,6 +3,9 @@ import pygame
 from sprites import *
 from settings import *
 
+pygame.init()
+pygame.font.init()
+
 class Game:
     def __init__(self):
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -12,12 +15,18 @@ class Game:
         self.playing = True
         self.clock = pygame.time.Clock()
 
+        self.all_sprites = pygame.sprite.Group()
+
         self.player = Player()
         self.ball = Ball(self.player)
-        self.brick = Brick(self.ball)
+        for a in range(10):
+            self.brick = Brick(self.ball, a*100, 10)
+            self.all_sprites.add(self.brick)
+        for a in range(10):
+            self.brick = Brick(self.ball, a*100, 80)
+            self.all_sprites.add(self.brick)
 
-        self.all_sprites = pygame.sprite.Group()
-        self.all_sprites.add(self.player, self.ball, self.brick)
+        self.all_sprites.add(self.player, self.ball)
 
     def new(self):
         self.run()

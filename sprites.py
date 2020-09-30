@@ -1,6 +1,9 @@
 import pygame
 from settings import *
 
+pygame.init()
+pygame.font.init()
+
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         # pygame.sprite.Sprite.__init__(self)
@@ -49,24 +52,31 @@ class Ball(pygame.sprite.Sprite):
 
     def bounds(self):
         if self.rect.top <= 0:
-            self.y_vel *= -1
+            if self.rect.bottom >= HEIGHT:
+                pass
+            else:
+                self.y_vel *= -1
         if self.rect.left <= 0 or self.rect.right >= WIDTH:
-            self.x_vel *= -1
+            if self.rect.bottom >= HEIGHT:
+                pass
+            else:
+                self.x_vel *= -1
+
         if self.rect.bottom >= HEIGHT:
-            print("GameOver")
-            self.y_vel *= -1
+            pygame.quit()
 
     def collisions(self):
         if self.rect.bottom >= self.p.rect.top and (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
             self.y_vel *= -1
 
 class Brick(pygame.sprite.Sprite):
-    def __init__(self, ball):
+    def __init__(self, ball, x, y):
         super(Brick, self).__init__()
-        self.image = pygame.Surface((100, 50))
-        self.image.fill(RED)
+        self.image = pygame.Surface((95, 50))
+        self.image.fill(BLACK)
         self.rect = self.image.get_rect()
-        self.rect.center = (500, 500)
+        self.rect.x = x
+        self.rect.y = y
 
         self.ball = ball
 
