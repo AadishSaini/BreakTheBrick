@@ -57,6 +57,25 @@ class Ball(pygame.sprite.Sprite):
             self.y_vel *= -1
 
     def collisions(self):
-        if self.rect.bottom >= self.p.rect.top and 
-        (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
+        if self.rect.bottom >= self.p.rect.top and (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
             self.y_vel *= -1
+
+class Brick(pygame.sprite.Sprite):
+    def __init__(self, ball):
+        super(Brick, self).__init__()
+        self.image = pygame.Surface((100, 50))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+        self.rect.center = (500, 500)
+
+        self.ball = ball
+
+    def update(self):
+        self.check_collisions()
+
+    def check_collisions(self):
+        if self.rect.colliderect(self.ball.rect):
+            print("BOOM!")
+
+            self.ball.y_vel *= -1
+            self.kill()

@@ -14,9 +14,10 @@ class Game:
 
         self.player = Player()
         self.ball = Ball(self.player)
+        self.brick = Brick(self.ball)
 
         self.all_sprites = pygame.sprite.Group()
-        self.all_sprites.add(self.player, self.ball)
+        self.all_sprites.add(self.player, self.ball, self.brick)
 
     def new(self):
         self.run()
