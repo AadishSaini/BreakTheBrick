@@ -9,7 +9,7 @@ pygame.font.init()
 class Game:
     def __init__(self):
         self.win = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("BreakTheBrick")
+        pygame.display.set_caption(TITLE)
 
         self.running = True
         self.playing = True

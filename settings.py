@@ -1,5 +1,6 @@
 WIDTH = 1000
 HEIGHT = 500
+TITLE= "BreakTheBrick"
 
 FPS = 60
 
