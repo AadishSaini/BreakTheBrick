@@ -16,6 +16,8 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = WIDTH / 2 - self.width / 2
         self.rect.y = HEIGHT - (self.height + 10)
 
+        self.score = 0
+
     def update(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
@@ -70,7 +72,7 @@ class Ball(pygame.sprite.Sprite):
             self.y_vel *= -1
 
 class Brick(pygame.sprite.Sprite):
-    def __init__(self, ball, x, y):
+    def __init__(self, ball, player, x, y):
         super(Brick, self).__init__()
         self.image = pygame.Surface((95, 50))
         self.image.fill(BLACK)
@@ -79,6 +81,7 @@ class Brick(pygame.sprite.Sprite):
         self.rect.y = y
 
         self.ball = ball
+        self.player = player
 
     def update(self):
         self.check_collisions()
@@ -86,6 +89,7 @@ class Brick(pygame.sprite.Sprite):
     def check_collisions(self):
         if self.rect.colliderect(self.ball.rect):
             print("BOOM!")
-
             self.ball.y_vel *= -1
+            self.player.score += 1
+            print(self.player.score)
             self.kill()

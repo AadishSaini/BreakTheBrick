@@ -20,10 +20,10 @@ class Game:
         self.player = Player()
         self.ball = Ball(self.player)
         for a in range(10):
-            self.brick = Brick(self.ball, a*100, 10)
+            self.brick = Brick(self.ball, self.player, a*100, 10)
             self.all_sprites.add(self.brick)
         for a in range(10):
-            self.brick = Brick(self.ball, a*100, 80)
+            self.brick = Brick(self.ball, self.player,  a*100, 80)
             self.all_sprites.add(self.brick)
 
         self.all_sprites.add(self.player, self.ball)
