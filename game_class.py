@@ -2,6 +2,7 @@ import pygame
 
 from sprites import *
 from settings import *
+import time
 
 pygame.init()
 pygame.font.init()
@@ -29,6 +30,11 @@ class Game:
         self.all_sprites.add(self.player, self.ball)
 
     def new(self):
+        self.win.fill(WHITE)
+        self.draw()
+        self.events()
+        self.update()
+        time.sleep(5)
         self.run()
 
     def run(self):
