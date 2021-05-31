@@ -1,9 +1,9 @@
 import pygame
+from game_class import *
 
 pygame.init()
 pygame.font.init()
 
-from game_class import *
 
 g = Game()
 g.start_screen()

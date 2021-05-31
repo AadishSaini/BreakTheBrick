@@ -34,7 +34,6 @@ class Game:
         self.draw()
         self.events()
         self.update()
-        time.sleep(5)
         self.run()
 
     def run(self):
@@ -61,7 +60,32 @@ class Game:
         pygame.display.flip()
 
     def start_screen(self):
-        pass
+        waiting = True
+        while waiting:
+            for event in pygame.event.get():
+                keys = pygame.key.get_pressed()
+                if event.type == pygame.QUIT :
+                    waiting = False
+                    if self.playing:
+                        self.playing = False
+                    self.running = False
+                if keys[pygame.K_q]:
+                    waiting = False
+                    if self.playing:
+                        self.playing = False
+                    self.running = False
+                if keys[pygame.K_p]:
+                    waiting = False
+            self.clock.tick(15)
+            self.draw_text("Press P to play the game", 100, 100, 28, GREEN)
+            self.draw_text("Press Q to exit ", 130, 100, 28, RED)
+            self.draw_text("smh", 160, 100, 24, WHITE)
+            pygame.display.flip()
 
     def game_over_screen(self):
         pass
+
+    def draw_text(self, string, coordx, coordy, fontSize, color):
+        font = pygame.font.Font('freesansbold.ttf', fontSize)
+        text = font.render(string, True, color)
+        self.win.blit(text, (coordx, coordx))
