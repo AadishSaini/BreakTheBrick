@@ -45,6 +45,7 @@ class Ball(pygame.sprite.Sprite):
         self.x_vel = 8
         self.y_vel = -7
         self.p = player
+        self.hasCollided = False
 
     def update(self):
         self.rect.x+= self.x_vel
@@ -65,7 +66,8 @@ class Ball(pygame.sprite.Sprite):
                 self.x_vel *= -1
 
         if self.rect.bottom >= HEIGHT:
-            pygame.quit()
+            self.hasCollided = True
+            #pygame.quit()
 
     def collisions(self):
         if self.rect.bottom >= self.p.rect.top and (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):

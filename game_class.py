@@ -2,6 +2,7 @@ import pygame
 
 from sprites import *
 from settings import *
+from UIUtils import *
 import time
 
 pygame.init()
@@ -28,8 +29,11 @@ class Game:
             self.all_sprites.add(self.brick)
 
         self.all_sprites.add(self.player, self.ball)
+        self.startNewGame = False
+
 
     def new(self):
+        print("Button working")
         self.win.fill(WHITE)
         self.draw()
         self.events()
@@ -48,6 +52,8 @@ class Game:
         self.all_sprites.draw(self.win)
 
     def events(self):
+        if(self.ball.hasCollided):
+            self.gameOver()
         for event in pygame.event.get():
             keys = pygame.key.get_pressed()
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
@@ -89,3 +95,29 @@ class Game:
         font = pygame.font.Font('freesansbold.ttf', fontSize)
         text = font.render(string, True, color)
         self.win.blit(text, (coordx, coordx))
+
+    def broadcast_new_game(self):
+        self.startNewGame = True
+        self.new()
+        print(self.startNewGame)
+
+    def gameOver(self):
+        self.win.fill(BLACK)
+        self.all_sprites.empty()
+        self.draw_text("GAME OVER!!", 100, 100, 60, (255, 0, 0))
+        self.draw_text("Your final Score was: " + str(self.player.score), 200, 200, 20, (0, 255, 0))
+
+        button = Button(self.win, (255, 0, 0), Text("Play Again",(305, 310), 20, (0, 0, 0)), (300, 300), (110, 50), self.new)
+        button.render()
+        self.draw_text("Play Again", 300, 300, 10, (0, 0, 0))
+
+    def draw_text(self, string, coordx, coordy, fontSize, color):
+        Text.draw_text(self.win, string, coordx, coordy, fontSize, color)
+
+
+    def wait_key_press(self):
+        pass
+        # waiting = True
+        # while waiting:
+        #     if event.type == pygame.KEYPRESS:
+        #         waiting = False
