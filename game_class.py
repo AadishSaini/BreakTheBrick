@@ -84,8 +84,7 @@ class Game:
                     waiting = False
             self.clock.tick(15)
             self.draw_text("Press P to play the game", 100, 100, 28, GREEN)
-            self.draw_text("Press Q to exit ", 130, 100, 28, RED)
-            self.draw_text("smh", 160, 100, 24, WHITE)
+            self.draw_text("Press Q to exit ", 100, 130, 28, RED)
             pygame.display.flip()
 
     def game_over_screen(self):
