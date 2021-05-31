@@ -91,11 +91,6 @@ class Game:
     def game_over_screen(self):
         pass
 
-    def draw_text(self, string, coordx, coordy, fontSize, color):
-        font = pygame.font.Font('freesansbold.ttf', fontSize)
-        text = font.render(string, True, color)
-        self.win.blit(text, (coordx, coordx))
-
     def broadcast_new_game(self):
         self.startNewGame = True
         self.new()
@@ -114,10 +109,3 @@ class Game:
     def draw_text(self, string, coordx, coordy, fontSize, color):
         Text.draw_text(self.win, string, coordx, coordy, fontSize, color)
 
-
-    def wait_key_press(self):
-        pass
-        # waiting = True
-        # while waiting:
-        #     if event.type == pygame.KEYPRESS:
-        #         waiting = False
