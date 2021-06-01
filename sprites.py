@@ -66,8 +66,9 @@ class Ball(pygame.sprite.Sprite):
                 self.x_vel *= -1
 
         if self.rect.bottom >= HEIGHT:
+            
             self.hasCollided = True
-            #pygame.quit()
+
 
     def collisions(self):
         if self.rect.bottom >= self.p.rect.top and (self.rect.x >= self.p.rect.left and self.rect.x <= self.p.rect.right):
@@ -90,8 +91,6 @@ class Brick(pygame.sprite.Sprite):
 
     def check_collisions(self):
         if self.rect.colliderect(self.ball.rect):
-            print("BOOM!")
             self.ball.y_vel *= -1
             self.player.score += 1
-            print(self.player.score)
             self.kill()

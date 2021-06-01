@@ -19,6 +19,22 @@ class Game:
 
         self.all_sprites = pygame.sprite.Group()
 
+        self.player = None
+        self.ball = None
+
+        self.brick = None
+        self.counter = True
+
+
+    def new(self):
+        self.win.fill(WHITE)
+        self.init()
+        self.draw()
+        self.events()
+        self.update()
+        self.run()
+
+    def init(self):
         self.player = Player()
         self.ball = Ball(self.player)
         for a in range(10):
@@ -29,16 +45,7 @@ class Game:
             self.all_sprites.add(self.brick)
 
         self.all_sprites.add(self.player, self.ball)
-        self.startNewGame = False
-
-
-    def new(self):
-        print("Button working")
-        self.win.fill(WHITE)
-        self.draw()
-        self.events()
-        self.update()
-        self.run()
+        self.counter = True
 
     def run(self):
         while self.playing:
@@ -52,8 +59,14 @@ class Game:
         self.all_sprites.draw(self.win)
 
     def events(self):
-        if(self.ball.hasCollided):
+        if(self.ball.hasCollided and self.counter):
             self.gameOver()
+            self.counter = False
+
+        if(self.player.score >= 20 and self.counter):
+            self.gameOver()
+            self.counter = False
+
         for event in pygame.event.get():
             keys = pygame.key.get_pressed()
             if event.type == pygame.QUIT or keys[pygame.K_ESCAPE]:
@@ -90,10 +103,9 @@ class Game:
     def game_over_screen(self):
         pass
 
-    def broadcast_new_game(self):
-        self.startNewGame = True
+    def broadcast_new_game(self, button):
+        self.ball.hasCollided = False
         self.new()
-        print(self.startNewGame)
 
     def gameOver(self):
         self.win.fill(BLACK)
@@ -101,10 +113,8 @@ class Game:
         self.draw_text("GAME OVER!!", 100, 100, 60, (255, 0, 0))
         self.draw_text("Your final Score was: " + str(self.player.score), 200, 200, 20, (0, 255, 0))
 
-        button = Button(self.win, (255, 0, 0), Text("Play Again",(305, 310), 20, (0, 0, 0)), (300, 300), (110, 50), self.new)
-        button.render()
-        self.draw_text("Play Again", 300, 300, 10, (0, 0, 0))
+        button = Button(self.win, (255, 0, 0), Text("Play Again",(305, 310), 20, (0, 0, 0)), (300, 300), (110, 50), lambda: self.broadcast_new_game(button))
+        button.render(True)
 
     def draw_text(self, string, coordx, coordy, fontSize, color):
         Text.draw_text(self.win, string, coordx, coordy, fontSize, color)
-
